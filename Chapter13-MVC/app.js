@@ -1,7 +1,7 @@
 // External Module
 const express = require('express');
-const userRouter = require('./routes/userRouter');
-const { hostRouter } = require('./routes/hostRouter');
+const storeRouter = require('./routes/storeRouter');
+const  hostRouter = require('./routes/hostRouter');
 const { errorControllers } = require('./controllers/errorControllers');
 
 const app = express();
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded()); 
 
-app.use(userRouter);
+app.use(storeRouter);
 app.use('/host',hostRouter);
 app.use(errorControllers);
 
