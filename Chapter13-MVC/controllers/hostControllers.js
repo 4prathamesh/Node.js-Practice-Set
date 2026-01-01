@@ -6,7 +6,6 @@ exports.getAddHome = (req, res, next) => {
 } 
 
 exports.postAddHome = (req, res, next) => {
-    console.log(req.body);
     const {houseName, price, location, rating, photoUrl} = req.body;
     const home = new Home(houseName, price, location, rating, photoUrl);
     home.save();
