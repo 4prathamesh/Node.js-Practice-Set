@@ -34,6 +34,18 @@ exports.postAddToFavourite = (req, res, next) => {
     res.redirect('/favourites');
 };
 
+exports.postDeleteFavourite = (req, res, next) => {
+    const homeId = req.params.homeId; 
+    console.log('deleted favourite home id - ',homeId);
+    Favourite.deleteById(homeId, error =>{
+        if(error){
+            console.log('errod for deleteding favourites the file - ',error);
+        }
+        res.redirect('/favourites');
+    })
+    
+};
+
 exports.getHomeDetails = (req, res, next) => {
     const homeId = req.params.homeId;
 

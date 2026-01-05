@@ -23,8 +23,11 @@
                         Price: <%= home.price ? '₹ ' + home.price : 'N/A' %>
                     </p>
                     <div class="flex justify-between">
-                        <button class="bg-blue-500 p-2 ">Edit</button>
-                        <button class="bg-red-500 p-2 ">Delete</button>
+                        <a href="/host/edit-home/<%=home.id%>?editing=true" class="bg-blue-500 p-2 ">Edit</a>
+                        
+                        <form action="/host/delete-home/<%=home.id%>" method="POST">
+                            <button class="bg-red-500 p-2 " type="submit">Delete</button>
+                        </form>
                         <div class="">
                             <a href="#"
                             class="text-orange-600 font-semibold hover:text-orange-700 duration-200">

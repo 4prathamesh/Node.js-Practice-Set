@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const rootDir = require('../utils/pathutils');
+const Favourite = require('./favourite');
 
 
 const homeDataPath = path.join(rootDir,'data','homes.json');
@@ -16,13 +17,20 @@ module.exports = class Home {
     }
 
     save(){
-        this.id = Math.random().toString();
+        console.log(this);
         Home.fatchAll((registeredHome) => {
-            registeredHome.push(this);
-            fs.writeFile(homeDataPath, JSON.stringify(registeredHome), error => {
+            if(this.id){ // update home 
+                registeredHome = registeredHome.map(home => 
+                    home.id === this.id ? this : home )
+            } else{ // add home 
+                this.id = Math.random().toString();
+                registeredHome.push(this);
+            }
+            
+            fs.writeFile(homeDataPath, JSON.stringify(registeredHome), (error) => {
                 console.log('File Writing concluded', error);
-            })
-        })
+            });
+        });
         
     }
 
@@ -43,6 +51,15 @@ module.exports = class Home {
         this.fatchAll(homes => {
             const homeFound = homes.find(home => home.id === homeId);
             callback(homeFound);
+        })
+    }
+
+    static deleteById(homeId, callback){
+        this.fatchAll(homes => {
+            homes = homes.filter(home => home.id !== homeId);
+            fs.writeFile(homeDataPath, JSON.stringify(homes), error => {
+                Favourite.deleteById(homeId,callback);
+            });
         })
     }
 }

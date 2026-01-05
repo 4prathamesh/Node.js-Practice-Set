@@ -11,7 +11,7 @@
 
         <!-- Home Listing Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
-            <% registeredHome.forEach(home => { %>
+            <% favouriteHomes.forEach(home => { %>
                 <div class="bg-white shadow-md rounded-xl p-5 hover:shadow-xl duration-300">
                     <h2 class="text-xl font-semibold text-gray-800 mb-2">
                         <%= home.houseName %>
@@ -23,9 +23,10 @@
                         Price: <%= home.price ? '₹ ' + home.price : 'N/A' %>
                     </p>
                     <div class="flex justify-between">
-                        <button class="bg-green-500 p-2 ">Book</button>
-
                         <div class="">
+                            <form action="/favourites/delete/<%=home.id%>" method="POST">
+                                <button type="submit" class="bg-red-400 hover:bg-red-500 duration-100 p-2 cursor-pointer rounded ">Remove from Fev</button>
+                            </form>
                             <a href="#"
                             class="text-orange-600 font-semibold hover:text-orange-700 duration-200">
                             View Details →
