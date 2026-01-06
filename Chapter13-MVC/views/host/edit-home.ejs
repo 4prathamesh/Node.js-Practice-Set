@@ -42,6 +42,11 @@
           placeholder="Rating"
           class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
           required />
+        
+        <textarea name="description" id="description"
+          placeholder="Enter Description"
+          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          required ><%= editing ? home.description : '' %> </textarea>
 
         <input type="text" name="photoUrl" id="photoUrl"
           value="<%= editing ? home.photoUrl : '' %>"
