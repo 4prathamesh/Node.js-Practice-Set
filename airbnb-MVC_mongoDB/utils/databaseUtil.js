@@ -1,0 +1,27 @@
+const mongo = require('mongodb');
+
+const MongoClient = mongo.MongoClient;
+
+const MONGO_URL = "mongodb+srv://prathameshroot:root@prathamesh.sofwjiq.mongodb.net/?appName=Prathamesh";
+
+let _db;
+
+const mongoConnect = (callback) => {
+    MongoClient.connect(MONGO_URL)
+        .then(client => {
+            callback();
+            _db = client.db('airbnb');
+        }).catch(err => {
+            console.log('error while conneced to the mongo ',err);
+        });
+}
+
+const getDB = () => {
+    if(!_db){
+        throw new Error('Mongo not connected');
+    }
+    return _db;
+}
+
+exports.mongoConnect = mongoConnect;
+exports.getDB = getDB;
