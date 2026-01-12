@@ -1,0 +1,64 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <%- include('../partials/header') %>
+
+    <main class="flex flex-col items-center py-10 px-4 flex-1">
+
+        <!-- Title -->
+        <h1 class="text-4xl font-bold text-blue-600 mb-6">
+            Home Details
+        </h1>
+
+        <!-- Card -->
+        <div class="bg-white w-full max-w-3xl shadow-lg rounded-2xl p-6">
+            
+            <!-- Image -->
+            <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-200 mb-6">
+                <img src="<%= home.photoUrl %>" 
+                     alt="<%= home.houseName %>"
+                     class="w-full h-full object-cover">
+            </div>
+
+            <!-- Title & Rating -->
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-3xl font-semibold text-gray-800">
+                    <%= home.houseName %>
+                </h2>
+
+                <!-- Stars Rating -->
+                <span class="text-yellow-500 text-2xl font-bold">
+                    <% for(let i = 0; i < home.rating; i++) { %>
+                        ⭐
+                    <% } %>
+                </span>
+            </div>
+
+            <!-- Location -->
+            <p class="text-gray-700 text-lg mb-2">
+                📍 <span class="font-medium"><%= home.location || 'Not specified' %></span>
+            </p>
+
+            <!-- Price -->
+            <p class="text-green-600 text-xl font-semibold mb-4">
+                💰 Price per night: ₹ <%= home.price %>
+            </p>
+
+            <!-- Description (Optional) -->
+            <p class="text-gray-600 mb-6">
+                Enjoy a comfortable stay at <%= home.houseName %> located in <%= home.location %>.  
+                <%= home.description%>, and a rating of <%= home.rating %> ⭐.
+            </p>
+
+            <!-- Back Button -->
+            <a href="/" 
+               class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+               ← Back to Home
+            </a>
+            <%- include('../partials/favourite') %>
+        </div>
+    </main>
+
+</body>
+</html>
