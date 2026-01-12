@@ -40,14 +40,17 @@ exports.postEditHome = (req, res, next) => {
     })
 } 
 
-exports.postAddHome = (req, res, next) => {
-    const {houseName, price, location, rating, photoUrl, description} = req.body;
-    const home = new Home({houseName, price, location, rating, photoUrl, description});
-    home.save().then(() => {
-        console.log('Home Saved Successfuly');
-    });
-
-    res.redirect('/host/host-home-list');
+exports.postAddHome = async (req, res, next) => {
+    try {
+        const { houseName, price, location, rating, photoUrl, description } = req.body;
+        const home = new Home({ houseName, price, location, rating, photoUrl, description });
+        await home.save();
+        console.log('Home Saved Successfully');
+        res.redirect('/host/host-home-list');
+    } catch (error) {
+        console.error('Error saving home:', error);
+        res.status(500).redirect('/host/add-home'); // Or use flash messages
+    }
 };
 
 exports.postDeleteHome = (req, res, next) => {

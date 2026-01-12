@@ -14,45 +14,72 @@
     <form action="/host/<%= editing ? 'edit-home' : 'add-home' %>" method="POST"
       class="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-5 border border-gray-100">
 
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-4">
         <input type="hidden" name="id" id="id" value="<%= editing ? home._id : '' %>">
-        <label for="houseName" class="text-gray-700 font-medium">
-          Home Name
-        </label>
-        <input type="text" name="houseName" id="houseName"
-          value="<%= editing ? home.houseName : '' %>"
-          placeholder="Enter your home name"
-          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          required />
+        <div>
+          <label for="houseName" class="block text-gray-700 font-medium mb-2">
+            Home Name
+          </label>
+          <input type="text" name="houseName" id="houseName"
+            value="<%= editing ? home.houseName : '' %>"
+            placeholder="Enter your home name"
+            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required />
+        </div>
 
-        <input type="text" name="price" id="price"
-          value="<%= editing ? home.price : '' %>"
-          placeholder="Price Per Night"
-          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          required />
+        <div>
+          <label for="price" class="block text-gray-700 font-medium mb-2">
+            Price Per Night
+          </label>
+          <input type="number" name="price" id="price"
+            value="<%= editing ? home.price : '' %>"
+            placeholder="Price Per Night"
+            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required />
+        </div>
 
-        <input type="text" name="location" id="location"
-          value="<%= editing ? home.location : '' %>"
-          placeholder="Enter The location"
-          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          required />
+        <div>
+          <label for="location" class="block text-gray-700 font-medium mb-2">
+            Location
+          </label>
+          <input type="text" name="location" id="location"
+            value="<%= editing ? home.location : '' %>"
+            placeholder="Enter The location"
+            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required />
+        </div>
 
-        <input type="text" name="rating" id="rating"
-          value="<%= editing ? home.rating : '' %>"
-          placeholder="Rating"
-          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          required />
+        <div>
+          <label for="rating" class="block text-gray-700 font-medium mb-2">
+            Rating
+          </label>
+          <input type="number" name="rating" id="rating"
+            value="<%= editing ? home.rating : '' %>"
+            placeholder="Rating"
+            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required />
+        </div>
         
-        <textarea name="description" id="description"
-          placeholder="Enter Description"
-          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          required ><%= editing ? home.description : '' %> </textarea>
+        <div>
+          <label for="description" class="block text-gray-700 font-medium mb-2">
+            Description
+          </label>
+          <textarea name="description" id="description"
+            placeholder="Enter Description"
+            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required ><%= editing ? home.description : '' %></textarea>
+        </div>
 
-        <input type="text" name="photoUrl" id="photoUrl"
-          value="<%= editing ? home.photoUrl : '' %>"
-          placeholder="Enter Photo URL"
-          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          required />
+        <div>
+          <label for="photoUrl" class="block text-gray-700 font-medium mb-2">
+            Photo URL
+          </label>
+          <input type="text" name="photoUrl" id="photoUrl"
+            value="<%= editing ? home.photoUrl : '' %>"
+            placeholder="Enter Photo URL"
+            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required />
+        </div>
       </div>
 
       <button type="submit"

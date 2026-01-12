@@ -15,7 +15,7 @@
         <div class="bg-white w-full max-w-3xl shadow-lg rounded-2xl p-6">
             
             <!-- Image -->
-            <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-200 mb-6">
+            <div class="w-full h-48 sm:h-64 rounded-xl overflow-hidden bg-gray-200 mb-6">
                 <img src="<%= home.photoUrl %>" 
                      alt="<%= home.houseName %>"
                      class="w-full h-full object-cover">
@@ -45,10 +45,9 @@
                 💰 Price per night: ₹ <%= home.price %>
             </p>
 
-            <!-- Description (Optional) -->
+            <!-- Description -->
             <p class="text-gray-600 mb-6">
-                Enjoy a comfortable stay at <%= home.houseName %> located in <%= home.location %>.  
-                <%= home.description%>, and a rating of <%= home.rating %> ⭐.
+                <%= home.description || 'No description available.' %>
             </p>
 
             <!-- Back Button -->
