@@ -19,8 +19,8 @@ exports.getBookings = (req, res, next) => {
 };
 
 exports.getFavouriteList = (req, res, next) => {
-    Favourite.getFavourites().then(favourites => {
-        favourites = favourites.map(fav => fav.homeId);
+    Favourite.find().then(favourites => {
+        favourites = favourites.map(fav => fav.houseId.toString());
         Home.find().then(registeredHome => {
             const favouriteHomes = registeredHome.filter(home => favourites.includes(home._id.toString())
             );
@@ -31,14 +31,21 @@ exports.getFavouriteList = (req, res, next) => {
 
 exports.postAddToFavourite = (req, res, next) => {
     const homeId = req.body.id;
-    const fav = new Favourite(homeId);
-    fav.save().then(result => {
-        console.log('Home Added in to Favourite List ',result);
-    }).catch(error => {
-        console.log('error come when HOme add to Favourtie ',error);
-    }).finally( () =>{
-        res.redirect('/favourites');
-    })
+    Favourite.findOne({ houseId: homeId }).then(existingFav => {
+        if (existingFav) {
+            console.log('Home is already in Favourite List');
+            
+        }else {
+            fav = new Favourite({ houseId: homeId });
+            fav.save().then(result => {
+                console.log('Home Added in to Favourite List ',result);
+            });
+        }
+        return res.redirect('/favourites');
+    }).catch(err => {
+        
+        console.log('Error checking existing favourite:', err);
+    });
     
 };
 
