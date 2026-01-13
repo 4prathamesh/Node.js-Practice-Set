@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.use((req, res, next) => {
-    console.log(req.url, req.method);
+    console.log(`URL: ${req.url}, Method: ${req.method}, Referrer: ${req.get('Referrer') || 'None'}`);
     next();
 });
 

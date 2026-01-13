@@ -48,7 +48,7 @@ exports.postDeleteFavourite = (req, res, next) => {
         console.log('favourite Home deleted ');
     }).catch( error =>{
         if(error){
-            console.log('errod for deleteding favourites the file - ',error);
+            console.log('error for deleting favourites the file - ',error);
         }
         
     }).finally( ()=>{
@@ -60,12 +60,20 @@ exports.postDeleteFavourite = (req, res, next) => {
 exports.getHomeDetails = (req, res, next) => {
     const homeId = req.params.homeId;
 
+    // Check if homeId is a valid ObjectId
+    if (!homeId.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.redirect("/home");
+    }
+
     Home.findById(homeId).then(home => {
         if(!home){
             res.redirect("/home");
         }else{
             res.render( 'store/home-detail' ,{ pageTitle: 'Home Details', currentPage : 'Home', home });
         }
+    }).catch(err => {
+        console.log('Error finding home:', err);
+        res.redirect("/home");
     });
     
 };
