@@ -21,6 +21,14 @@ const homeSchema = mongoose.Schema({
     description: String,
 });
 
+homeSchema.pre('findOneAndDelete', async function(next) {
+    const homeId = this.getQuery()._id;
+    const Favourite = require('./favourite');
+
+    await Favourite.deleteMany({ homeId: homeId });
+    next();
+});
+
 module.exports = mongoose.model('Home',homeSchema);
 /*
 

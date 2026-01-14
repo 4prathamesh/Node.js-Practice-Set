@@ -31,6 +31,7 @@ exports.getFavouriteList = (req, res, next) => {
 
 exports.postAddToFavourite = (req, res, next) => {
     const homeId = req.body.id;
+    console.log('Home ID to add to favourite:', homeId);
     Favourite.findOne({ houseId: homeId }).then(existingFav => {
         if (existingFav) {
             console.log('Home is already in Favourite List');
@@ -51,7 +52,7 @@ exports.postAddToFavourite = (req, res, next) => {
 
 exports.postDeleteFavourite = (req, res, next) => {
     const homeId = req.params.homeId; 
-    Favourite.deleteById(homeId).then( () => {
+    Favourite.findOneAndDelete({ houseId: homeId }).then( () => {
         console.log('favourite Home deleted ');
     }).catch( error =>{
         if(error){
