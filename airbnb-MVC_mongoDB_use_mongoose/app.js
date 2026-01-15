@@ -4,6 +4,7 @@ const storeRouter = require('./routes/storeRouter');
 const  hostRouter = require('./routes/hostRouter');
 const { errorControllers } = require('./controllers/errorControllers');
 const { default: mongoose } = require('mongoose');
+const authRouter = require('./routes/authRouter');
 
 const app = express();
 app.use(express.static('public'));
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true })); 
 
+app.use('/auth', authRouter);
 app.use(storeRouter);
 app.use('/host',hostRouter);
 app.use(errorControllers);

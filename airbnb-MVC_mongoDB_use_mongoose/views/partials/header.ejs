@@ -7,14 +7,17 @@
             </a>
             <div class="hidden md:flex space-x-6">
               <a href="/home" class="<%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Home List</a>
+              <!-- <% if(isLoggedIn) { %> -->
+                <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Bookings</a>
 
-              <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Bookings</a>
+                <a href="/favourites" class="<%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Favourites</a>
 
-              <a href="/favourites" class="<%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Favourites</a>
+                <a href="/host/host-home-list" class="<%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Host Homes</a>
 
-              <a href="/host/host-home-list" class="<%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Host Homes</a>
-
-              <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Add Home</a>
+                <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Add Home</a>
+              <!-- <% } %> -->
+              
+              <a href="/auth/login" class="<%= currentPage === 'login' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Login</a>
             </div>
             <!-- Mobile menu button -->
             <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
@@ -34,6 +37,8 @@
             <a href="/host/host-home-list" class="<%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Host Homes</a>
 
             <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Add Home</a>
+
+            <a href="/auth/login" class="<%= currentPage === 'login' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Login</a>
           </div>
         </div>
       </nav>
