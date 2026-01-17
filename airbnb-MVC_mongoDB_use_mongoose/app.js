@@ -18,8 +18,22 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true })); 
 
+app.use((req, res, next) => {
+    const isLoggedIn = req.get('Cookie') ? req.get('Cookie').split('=')[1] === 'true' : false; 
+    console.log('isLoggedIn Cookie:', isLoggedIn);
+    req.isLoggedIn = isLoggedIn;
+    next();
+});
+
 app.use('/auth', authRouter);
 app.use(storeRouter);
+app.use('/host', (req, res, next) => {
+    if(req.isLoggedIn){
+        next();
+    }else{
+        return res.redirect('/auth/login');
+    }
+});
 app.use('/host',hostRouter);
 app.use(errorControllers);
 
