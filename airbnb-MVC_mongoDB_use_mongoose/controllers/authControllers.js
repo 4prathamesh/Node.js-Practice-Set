@@ -3,15 +3,15 @@ exports.getLogin = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    const { email, password } = req.body;
-    // Here you would typically validate the user credentials
-    // For demonstration, we will assume the login is always successful
-    res.cookie('isLoggedIn', true);
-    // req.isLoggedIn = true;
-    res.redirect('/'); // Redirect to home page after login
+    // res.cookie('isLoggedIn', true);
+    req.session.isLoggedIn = true;
+    res.redirect('/');
 }
 
 exports.postLogout = (req, res, next) => {
-    res.clearCookie('isLoggedIn');
-    res.redirect('/auth/login'); // Redirect to home page after logout
+    // res.clearCookie('isLoggedIn');
+    req.session.destroy(() => {
+        res.redirect('/auth/login');
+    });
+    
 }

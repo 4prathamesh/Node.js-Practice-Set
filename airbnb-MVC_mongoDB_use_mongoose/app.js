@@ -1,5 +1,10 @@
 // External Module
 const express = require('express');
+const session = require('express-session');
+const mongobdStore = require('connect-mongodb-session')(session);
+const DB_PATH = 'mongodb+srv://prathameshroot:root@prathamesh.sofwjiq.mongodb.net/airbnb?appName=Prathamesh';
+
+// Internal Module
 const storeRouter = require('./routes/storeRouter');
 const  hostRouter = require('./routes/hostRouter');
 const { errorControllers } = require('./controllers/errorControllers');
@@ -11,16 +16,27 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+const store = new mongobdStore({
+    uri: DB_PATH,
+    collection: 'sessions'
+});
+
 app.use((req, res, next) => {
     console.log(`URL: ${req.url}, Method: ${req.method}, Referrer: ${req.get('Referrer') || 'None'}`);
     next();
 });
 
 app.use(express.urlencoded({ extended: true })); 
+app.use(session({
+    secret:'my_secret_key_prat',
+    resave: false,
+    saveUninitialized: true,
+    store
+}));
 
 app.use((req, res, next) => {
-    const isLoggedIn = req.get('Cookie') ? req.get('Cookie').split('=')[1] === 'true' : false; 
-    console.log('isLoggedIn Cookie:', isLoggedIn);
+    const isLoggedIn = req.session ? req.session.isLoggedIn : false; 
+    console.log('isLoggedIn Session:', isLoggedIn);
     req.isLoggedIn = isLoggedIn;
     next();
 });
@@ -38,7 +54,6 @@ app.use('/host',hostRouter);
 app.use(errorControllers);
 
 const PORT = 3000;
-const DB_PATH = 'mongodb+srv://prathameshroot:root@prathamesh.sofwjiq.mongodb.net/airbnb?appName=Prathamesh';
 
 mongoose.connect(DB_PATH).then( () =>{
     console.log('mongodb conndec ');
