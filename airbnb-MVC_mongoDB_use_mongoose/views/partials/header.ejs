@@ -1,58 +1,149 @@
-    <!-- Navbar -->
-    <nav class="bg-orange-500 text-white py-4 shadow-md">
-        <div class="container mx-auto px-4">
-          <div class="flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold tracking-wide">
-              Airbnb<span class="text-yellow-300">a</span>
-            </a>
-            <div class="hidden md:flex space-x-6">
-              <a href="/home" class="<%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Home List</a>
-              <% if(isLoggedIn) { %>
-                <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Bookings</a>
+<!-- Navbar -->
+<nav class="bg-orange-500 text-white shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-                <a href="/favourites" class="<%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Favourites</a>
+    <!-- Top bar -->
+    <div class="flex justify-between items-center h-16">
 
-                <a href="/host/host-home-list" class="<%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Host Homes</a>
+      <!-- Logo -->
+      <a href="/" class="text-2xl font-bold tracking-wide">
+        Airbnb<span class="text-yellow-300">a</span>
+      </a>
 
-                <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Add Home</a>
-              <% } %>
-              <% if(isLoggedIn) { %>
-                <a href="/auth/logout" class="<%= currentPage === 'logout' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Logout</a>
-              <% } else { %>
-                <a href="/auth/login" class="<%= currentPage === 'login' ? 'bg-red-500' : 'hover:bg-red-500' %> py-2 px-4 rounded transition duration-300">Login</a>
-              <% } %>
-            </div>
-            <!-- Mobile menu button -->
-            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
-          <!-- Mobile menu -->
-          <div class="md:hidden mt-4 space-y-2 hidden" id="mobile-menu">
-            <a href="/home" class="<%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Home List</a>
-            <% if(isLoggedIn) { %>
-              <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Bookings</a>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-4">
 
-              <a href="/favourites" class="<%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Favourites</a>
+        <a href="/home"
+           class="px-4 py-2 rounded transition
+           <%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+          Home List
+        </a>
 
-              <a href="/host/host-home-list" class="<%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Host Homes</a>
+        <% if(isLoggedIn) { %>
 
-              <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Add Home</a>
+          <a href="/bookings"
+             class="px-4 py-2 rounded transition
+             <%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Bookings
+          </a>
 
-              <a href="/auth/logout" class="<%= currentPage === 'logout' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Logout</a>
-            <% } else { %>
-              <a href="/auth/login" class="<%= currentPage === 'login' ? 'bg-red-500' : 'hover:bg-red-500' %> block py-2 px-4 rounded transition duration-300">Login</a>
-            <% } %>
-          </div>
-        </div>
-      </nav>
+          <a href="/favourites"
+             class="px-4 py-2 rounded transition
+             <%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Favourites
+          </a>
 
-      <script>
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-        });
-      </script>
+          <a href="/host/host-home-list"
+             class="px-4 py-2 rounded transition
+             <%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Host Homes
+          </a>
+
+          <a href="/host/add-home"
+             class="px-4 py-2 rounded transition
+             <%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Add Home
+          </a>
+
+          <a href="/auth/logout"
+             class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition">
+            Logout
+          </a>
+
+        <% } else { %>
+          <a href="/auth/Singup"
+             class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition">
+            Sing Up
+          </a>
+
+          <a href="/auth/login"
+             class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition">
+            Login
+          </a>
+
+        <% } %>
+      </div>
+
+      <!-- Mobile Button -->
+      <button id="mobile-menu-button"
+              class="md:hidden p-2 rounded hover:bg-orange-600 transition">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor"
+             viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+         class="md:hidden hidden bg-orange-500 border-t border-orange-400">
+
+      <div class="flex flex-col space-y-2 py-4">
+
+        <a href="/home"
+           class="px-4 py-3 rounded transition
+           <%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+          Home List
+        </a>
+
+        <% if(isLoggedIn) { %>
+
+          <a href="/bookings"
+             class="px-4 py-3 rounded transition
+             <%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Bookings
+          </a>
+
+          <a href="/favourites"
+             class="px-4 py-3 rounded transition
+             <%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Favourites
+          </a>
+
+          <a href="/host/host-home-list"
+             class="px-4 py-3 rounded transition
+             <%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Host Homes
+          </a>
+
+          <a href="/host/add-home"
+             class="px-4 py-3 rounded transition
+             <%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+            Add Home
+          </a>
+
+          <a href="/auth/logout"
+             class="px-4 py-3 rounded bg-red-600 hover:bg-red-700 transition text-center">
+            Logout
+          </a>
+
+        <% } else { %>
+
+          <a href="/auth/singIn"
+             class="px-4 py-3 rounded bg-red-600 hover:bg-red-700 transition text-center">
+            Sing In
+          </a>
+
+          <a href="/auth/login"
+             class="px-4 py-3 rounded bg-red-600 hover:bg-red-700 transition text-center">
+            Login
+          </a>
+
+        <% } %>
+
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>

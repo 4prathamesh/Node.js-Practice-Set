@@ -1,0 +1,195 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 via-gray-100 to-gray-200 min-h-screen">
+    <%- include('../partials/header') %>
+
+    <main class="flex items-center justify-center px-4 py-20 bg-gray-50">
+        <div class="w-full max-w-md bg-white/90 backdrop-blur rounded-3xl shadow-2xl p-8">
+
+            <!-- Title -->
+            <h1 class="text-3xl font-bold text-center text-gray-900">
+                Create Account
+            </h1>
+            <p class="text-center text-gray-500 mt-2 mb-10">
+                Start booking or hosting in minutes
+            </p>
+
+            <form action="/auth/Singup" method="POST" class="space-y-6">
+
+                <% if (errorMessages && errorMessages.length > 0) { %>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <ul class="list-disc list-inside">
+                            <% errorMessages.forEach(function(error) { %>
+                                <li class="text-red-500"><%= error %></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                    <% } %>
+
+                <!-- First Name -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700">
+                        First Name
+                    </label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        required
+                        placeholder="John"
+                        value="<%= oldInput.firstName ? oldInput.firstName : '' %>"
+                        class="mt-1 w-full px-4 py-3 border rounded-xl
+                               focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                               hover:border-gray-400 transition"
+                    />
+                </div>
+
+                <!-- Last Name -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700">
+                        Last Name
+                    </label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Doe"
+                        value="<%= oldInput.lastName ? oldInput.lastName : '' %>"
+                        class="mt-1 w-full px-4 py-3 border rounded-xl
+                               focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                               hover:border-gray-400 transition"
+                    />
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700">
+                        Email Address
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="john@example.com"
+                        value="<%= oldInput.email ? oldInput.email : '' %>"
+                        class="mt-1 w-full px-4 py-3 border rounded-xl
+                               focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                               hover:border-gray-400 transition"
+                    />
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        required
+                        placeholder="••••••••"
+                        class="mt-1 w-full px-4 py-3 border rounded-xl
+                               focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                               hover:border-gray-400 transition"
+                    />
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700">
+                        Confirm Password
+                    </label>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        required
+                        placeholder="••••••••"
+                        class="mt-1 w-full px-4 py-3 border rounded-xl
+                               focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                               hover:border-gray-400 transition"
+                    />
+                </div>
+
+                <!-- Role -->
+                <div>
+                    <p class="text-sm font-semibold text-gray-700 mb-4">
+                        Register as
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4">
+
+                        <!-- Guest -->
+                        <label
+                            class="group relative cursor-pointer rounded-2xl border p-5 text-center transition
+                                   hover:shadow-md
+                                   has-[:checked]:border-blue-600
+                                   has-[:checked]:bg-blue-50"
+                        >
+                            <input type="radio" name="role" value="guest" class="sr-only" required <%= oldInput.role === 'guest' ? 'checked' : '' %> />
+
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="text-2xl">🧳</div>
+                                <p class="text-lg font-semibold text-gray-800">
+                                    Guest
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    Book & explore stays
+                                </p>
+                            </div>
+                        </label>
+
+                        <!-- Host -->
+                        <label
+                            class="group relative cursor-pointer rounded-2xl border p-5 text-center transition
+                                   hover:shadow-md
+                                   has-[:checked]:border-blue-600
+                                   has-[:checked]:bg-blue-50"
+                        >
+                            <input type="radio" name="role" value="host" class="sr-only" <%= oldInput.role === 'host' ? 'checked' : '' %> />
+
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="text-2xl">🏠</div>
+                                <p class="text-lg font-semibold text-gray-800">
+                                    Host
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    List your property
+                                </p>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="flex items-start gap-2">
+                    <input type="checkbox" name="terms" required class="mt-1 accent-blue-600" <%= oldInput.role === 'host' ? 'checked' : '' %>>
+                    <p class="text-sm text-gray-600">
+                        I agree to the
+                        <a href="#" class="text-blue-600 hover:underline font-medium">
+                            Terms & Conditions
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Button -->
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold
+                           hover:bg-blue-700 active:scale-[0.98] transition"
+                >
+                    Create Account
+                </button>
+
+                <!-- Footer -->
+                <p class="text-center text-sm text-gray-500 mt-6">
+                    Already have an account?
+                    <a href="/auth/login" class="text-blue-600 hover:underline font-medium">
+                        Login
+                    </a>
+                </p>
+
+            </form>
+        </div>
+    </main>
+</body>
+</html>

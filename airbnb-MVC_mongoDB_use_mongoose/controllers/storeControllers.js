@@ -28,7 +28,7 @@ exports.getFavouriteList = (req, res, next) => {
                     {
                         favouriteHomes, 
                         pageTitle: 'My Favourite', 
-                        currentPage : 'favourite' , isLoggedIn: req.isLoggedIn || false
+                        currentPage : 'favourites' , isLoggedIn: req.isLoggedIn || false
                     });
             });
 };
