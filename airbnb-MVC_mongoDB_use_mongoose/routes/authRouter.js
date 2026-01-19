@@ -6,7 +6,7 @@ const authController = require('../controllers/authControllers');
 authRouter.get('/login', authController.getLogin);
 authRouter.post('/login', authController.postLogin);
 authRouter.get('/logout', authController.postLogout);
-authRouter.get('/Singup', authController.getSingup);
-authRouter.post('/Singup', authController.postSingup);
+authRouter.get('/singup', authController.getSingup);
+authRouter.post('/singup', authController.postSingup);
 
 module.exports = authRouter;

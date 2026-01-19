@@ -1,5 +1,9 @@
 // external imports
 const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+
+// internal imports
+const User = require('../Models/user');
 
 exports.getLogin = (req, res, next) => {
     res.render('auth/login', {pageTitle : 'Login', currentPage : 'login', isLoggedIn: false});
@@ -45,7 +49,7 @@ exports.postSingup = [
     .withMessage("First Name must contain only letters"),
 
     check("lastName")
-    .matches(/^[A-Za-z]+$/)
+    .matches(/^[A-Za-z]*$/)
     .withMessage("Last Name must contain only letters"),
 
     check("email")
@@ -64,6 +68,7 @@ exports.postSingup = [
         if (value !== req.body.password) {
             throw new Error("Passwords do not match");
         }
+        return true;
     }),     
 
     check("role")
@@ -77,7 +82,7 @@ exports.postSingup = [
     .withMessage("You must accept the terms and conditions"),
 
     (req, res, next) => {
-        const { firstName, lastName, email, password, role } = req.body;
+        const { firstName, lastName, email, password, role, terms } = req.body;
         const errors = validationResult(req);
         if (!errors.isEmpty()) { 
             return res.status(422).render('auth/singup', {
@@ -90,10 +95,33 @@ exports.postSingup = [
                     lastName,
                     email,
                     password,
-                    role
+                    role,
+                    terms
                 }
             });
         }
-        res.redirect('/auth/login');
+
+        bcrypt.hash(password, 12).then( hashedPassword => {
+
+        user = new User({ firstName, lastName , email, password: hashedPassword, role, terms: true });
+        return user.save();
+        }).then(()=>{
+            res.redirect('/auth/login');
+        }).catch( err => {
+            return res.status(422).render('auth/singup', {
+                pageTitle: 'SingUp',
+                currentPage: 'signup',
+                isLoggedIn: false,
+                errorMessages: [err.message],
+                oldInput: {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    role,
+                    terms
+                }
+            });
+        });
     }
 ];

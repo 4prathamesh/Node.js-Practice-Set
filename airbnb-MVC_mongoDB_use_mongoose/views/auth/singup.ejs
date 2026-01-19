@@ -15,7 +15,7 @@
                 Start booking or hosting in minutes
             </p>
 
-            <form action="/auth/Singup" method="POST" class="space-y-6">
+            <form action="/auth/singup" method="POST" class="space-y-6">
 
                 <% if (errorMessages && errorMessages.length > 0) { %>
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -162,7 +162,7 @@
 
                 <!-- Terms -->
                 <div class="flex items-start gap-2">
-                    <input type="checkbox" name="terms" required class="mt-1 accent-blue-600" <%= oldInput.role === 'host' ? 'checked' : '' %>>
+                    <input type="checkbox" name="terms" required class="mt-1 accent-blue-600" <%= oldInput.terms === 'on' ? 'checked' : '' %>>
                     <p class="text-sm text-gray-600">
                         I agree to the
                         <a href="#" class="text-blue-600 hover:underline font-medium">
