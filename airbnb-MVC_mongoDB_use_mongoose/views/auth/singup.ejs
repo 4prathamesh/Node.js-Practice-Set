@@ -17,15 +17,7 @@
 
             <form action="/auth/singup" method="POST" class="space-y-6">
 
-                <% if (errorMessages && errorMessages.length > 0) { %>
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <ul class="list-disc list-inside">
-                            <% errorMessages.forEach(function(error) { %>
-                                <li class="text-red-500"><%= error %></li>
-                            <% }); %>
-                        </ul>
-                    </div>
-                    <% } %>
+                <%- include('../partials/error', { errorMessages: errorMessages }) %>
 
                 <!-- First Name -->
                 <div>

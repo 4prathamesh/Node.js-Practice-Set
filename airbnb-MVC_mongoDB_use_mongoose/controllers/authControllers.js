@@ -6,12 +6,47 @@ const bcrypt = require('bcryptjs');
 const User = require('../Models/user');
 
 exports.getLogin = (req, res, next) => {
-    res.render('auth/login', {pageTitle : 'Login', currentPage : 'login', isLoggedIn: false});
+    res.render('auth/login', {pageTitle : 'Login', currentPage : 'login', isLoggedIn: false, errorMessages : [],
+    oldInput : {
+        email: '',
+        password: ''
+    }});
 }
 
-exports.postLogin = (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
     // res.cookie('isLoggedIn', true);
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+        return res.status(422).render('auth/login', {
+            pageTitle: 'Login',
+            currentPage: 'login',
+            isLoggedIn: false,
+            errorMessages: ["User doesn't exist"],
+            oldInput: {
+                email: email,
+                password: ''
+            }
+        });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch){
+        return res.status(422).render('auth/login', {
+            pageTitle: 'Login',
+            currentPage: 'login',
+            isLoggedIn: false,
+            errorMessages: ["Invalid credentials"],
+            oldInput: {
+                email: '',
+                password: ''
+            }
+        });
+    } 
+        
     req.session.isLoggedIn = true;
+    req.session.user = user;
+    await req.session.save();
     res.redirect('/');
 }
 
@@ -89,14 +124,9 @@ exports.postSingup = [
                 pageTitle: 'SingUp',
                 currentPage: 'signup',
                 isLoggedIn: false,
-                errorMessages: errors.array().map(err => err.msg),
+                errorMessages: ["User doesn't exist"],
                 oldInput: {
-                    firstName,
-                    lastName,
                     email,
-                    password,
-                    role,
-                    terms
                 }
             });
         }
