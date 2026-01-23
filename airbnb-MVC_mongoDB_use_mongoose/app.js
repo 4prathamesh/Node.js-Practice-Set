@@ -21,11 +21,6 @@ const store = new mongobdStore({
     collection: 'sessions'
 });
 
-app.use((req, res, next) => {
-    console.log(`URL: ${req.url}, Method: ${req.method}, Referrer: ${req.get('Referrer') || 'None'}`);
-    next();
-});
-
 app.use(express.urlencoded({ extended: true })); 
 app.use(session({
     secret:'my_secret_key_prat',
@@ -35,9 +30,15 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
+    console.log(`URL: ${req.url}, Method: ${req.method}, Referrer: ${req.get('Referrer') || 'None'}`);
+    next();
+});
+
+app.use((req, res, next) => {
     const isLoggedIn = req.session ? req.session.isLoggedIn : false; 
     console.log('isLoggedIn Session:', isLoggedIn);
     req.isLoggedIn = isLoggedIn;
+    req.user = req.session ? req.session.user : null;
     next();
 });
 

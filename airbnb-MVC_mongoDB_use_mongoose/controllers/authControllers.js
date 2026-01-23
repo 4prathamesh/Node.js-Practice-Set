@@ -10,7 +10,8 @@ exports.getLogin = (req, res, next) => {
     oldInput : {
         email: '',
         password: ''
-    }});
+    }, 
+    user : []});
 }
 
 exports.postLogin = async (req, res, next) => {
@@ -26,7 +27,8 @@ exports.postLogin = async (req, res, next) => {
             oldInput: {
                 email: email,
                 password: ''
-            }
+            },
+            user : []
         });
     }
 
@@ -40,14 +42,17 @@ exports.postLogin = async (req, res, next) => {
             oldInput: {
                 email: '',
                 password: ''
-            }
+            },
+            user : []
         });
     } 
         
     req.session.isLoggedIn = true;
+    console.log('User logged in successfully:', user);
     req.session.user = user;
     await req.session.save();
-    res.redirect('/');
+    console.log('Session after login:', req.session);
+    res.redirect('/home');
 }
 
 exports.postLogout = (req, res, next) => {
@@ -61,16 +66,19 @@ exports.postLogout = (req, res, next) => {
 exports.getSingup = (req, res, next) => {
     res.render(
         'auth/singup',
-        {pageTitle : 'SingUp', currentPage : 'signup', isLoggedIn: false, errorMessages : [],
-        oldInput : {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            role: '',
-            terms: ''
-        }}
+        {
+            pageTitle : 'SingUp', currentPage : 'singup', isLoggedIn: false, errorMessages : [],
+            oldInput : {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                role: '',
+                terms: ''
+            },
+            user : []
+        }
     );
 }
 
@@ -127,7 +135,8 @@ exports.postSingup = [
                 errorMessages: ["User doesn't exist"],
                 oldInput: {
                     email,
-                }
+                },
+                user : []
             });
         }
 
@@ -150,7 +159,8 @@ exports.postSingup = [
                     password,
                     role,
                     terms
-                }
+                },
+                user : []
             });
         });
     }
