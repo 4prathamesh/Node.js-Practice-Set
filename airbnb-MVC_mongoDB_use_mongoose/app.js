@@ -33,7 +33,7 @@ app.use((req, res, next) => {
     console.log(`URL: ${req.url}, Method: ${req.method}, Referrer: ${req.get('Referrer') || 'None'}`);
     next();
 });
-
+ 
 app.use((req, res, next) => {
     const isLoggedIn = req.session ? req.session.isLoggedIn : false; 
     console.log('isLoggedIn Session:', isLoggedIn);
