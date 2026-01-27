@@ -1,3 +1,3 @@
 exports.errorControllers = (req, res, next) => {
-    res.render('404',{ pageTitle: 'ErrorPage', currentPage : 'errorPage', isLoggedIn: req.isLoggedIn || false, user : req.session.user  });
+    res.render('404',{ pageTitle: 'ErrorPage', currentPage : 'errorPage', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user  });
 };

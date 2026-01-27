@@ -2,7 +2,7 @@
 const Home = require("../Models/home");
 
 exports.getAddHome = (req, res, next) => {
-    res.render('host/edit-home', {'editing': false, pageTitle : 'Add Home To Airbnb', currentPage : 'addHome', isLoggedIn: req.isLoggedIn || false, user : req.session.user });
+    res.render('host/edit-home', {'editing': false, pageTitle : 'Add Home To Airbnb', currentPage : 'addHome', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user });
 } 
 
 exports.getEditHome = (req, res, next) => {
@@ -14,7 +14,7 @@ exports.getEditHome = (req, res, next) => {
             console.log('Home not found!! ');
             return res.redirect('/host/host-home-list');
         }
-        res.render('host/edit-home', {home, 'editing':editing, pageTitle : 'Edit Home of Host', currentPage : 'editHome', isLoggedIn: req.isLoggedIn || false, user : req.session.user });
+        res.render('host/edit-home', {home, 'editing':editing, pageTitle : 'Edit Home of Host', currentPage : 'editHome', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user });
     });
     
 } 
@@ -66,6 +66,6 @@ exports.postDeleteHome = (req, res, next) => {
 
 exports.getHostHome = (req, res, next) => {
     Home.find().then((registeredHome) => {
-        res.render('host/host-home-list', {registeredHome, pageTitle : 'Host homes list', currentPage : 'host-home', isLoggedIn: req.isLoggedIn || false, user : req.session.user })
+        res.render('host/host-home-list', {registeredHome, pageTitle : 'Host homes list', currentPage : 'host-home', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user })
     });
 }

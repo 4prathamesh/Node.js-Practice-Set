@@ -33,19 +33,11 @@ app.use((req, res, next) => {
     console.log(`URL: ${req.url}, Method: ${req.method}, Referrer: ${req.get('Referrer') || 'None'}`);
     next();
 });
- 
-app.use((req, res, next) => {
-    const isLoggedIn = req.session ? req.session.isLoggedIn : false; 
-    console.log('isLoggedIn Session:', isLoggedIn);
-    req.isLoggedIn = isLoggedIn;
-    req.user = req.session ? req.session.user : null;
-    next();
-});
 
 app.use('/auth', authRouter);
 app.use(storeRouter);
 app.use('/host', (req, res, next) => {
-    if(req.isLoggedIn){
+    if(req.session && req.session.isLoggedIn){
         next();
     }else{
         return res.redirect('/auth/login');

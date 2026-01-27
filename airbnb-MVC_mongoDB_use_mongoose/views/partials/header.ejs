@@ -14,39 +14,34 @@
       <div class="hidden md:flex items-center space-x-4">
 
         <% if(isLoggedIn) { 
-            if(user && user.role === 'guest'){
-          %>
-            <a href="/home"
-              class="px-4 py-2 rounded transition
-              <%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
-              Home List
-            </a>
+            if(user.role ==='guest' ){ %>
+              <a href="/home" class="px-4 py-2 rounded transition
+                  <%= currentPage === 'Home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+                Home List
+              </a>
 
-            <a href="/bookings"
-              class="px-4 py-2 rounded transition
-              <%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %>">
-              Bookings
-            </a>
+              <a href="/bookings" class="px-4 py-2 rounded transition
+                  <%= currentPage === 'bookings' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+                Bookings
+              </a>
 
-            <a href="/favourites"
-              class="px-4 py-2 rounded transition
-              <%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %>">
-              Favourites
-            </a>
-          <% } else { %>
-            <a href="/host/host-home-list"
-              class="px-4 py-2 rounded transition
-              <%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
-              Host Homes
-            </a>
+              <a href="/favourites" class="px-4 py-2 rounded transition
+                  <%= currentPage === 'favourites' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+                Favourites
+              </a>
+            <% } else { %>
+                <a href="/host/host-home-list"
+                  class="px-4 py-2 rounded transition
+                  <%= currentPage === 'host-home' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+                  Host Homes
+                </a>
 
-            <a href="/host/add-home"
-              class="px-4 py-2 rounded transition
-              <%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %>">
-              Add Home
-            </a>
-
-          <% } %>
+                <a href="/host/add-home"
+                  class="px-4 py-2 rounded transition
+                  <%= currentPage === 'addHome' ? 'bg-red-500' : 'hover:bg-red-500' %>">
+                  Add Home
+                </a>
+            <% } %>
 
           <a href="/auth/logout"
              class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition
@@ -130,10 +125,10 @@
 
         <% } else { %>
 
-            <a href="/auth/singIn"
+            <a href="/auth/singup"
               class="px-4 py-3 rounded transition 
               <%= currentPage === 'singup' ? 'bg-red-500' : 'hover:bg-red-500' %>">
-              Sing In
+              Sing Up
             </a>
 
             <a href="/auth/login"

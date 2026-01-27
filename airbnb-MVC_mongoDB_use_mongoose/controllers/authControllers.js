@@ -48,10 +48,15 @@ exports.postLogin = async (req, res, next) => {
     } 
         
     req.session.isLoggedIn = true;
-    console.log('User logged in successfully:', user);
-    req.session.user = user;
+    req.session.user = {
+        _id: user._id.toString(),
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName
+    };
+
     await req.session.save();
-    console.log('Session after login:', req.session);
+    console.log(req.session);
     res.redirect('/home');
 }
 
