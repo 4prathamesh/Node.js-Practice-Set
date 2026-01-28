@@ -31,39 +31,28 @@ exports.getFavouriteList = async (req, res, next) => {
     });
 };
 
-exports.postAddToFavourite = (req, res, next) => {
+exports.postAddToFavourite = async (req, res, next) => {
     const homeId = req.body.id;
-    console.log('Home ID to add to favourite:', homeId);
-    Favourite.findOne({ houseId: homeId }).then(existingFav => {
-        if (existingFav) {
-            console.log('Home is already in Favourite List');
-            
-        }else {
-            fav = new Favourite({ houseId: homeId });
-            fav.save().then(result => {
-                console.log('Home Added in to Favourite List ',result);
-            });
-        }
-        return res.redirect('/favourites');
-    }).catch(err => {
-        
-        console.log('Error checking existing favourite:', err);
-    });
+    const userId = req.session.user._id;
+    const user = await User.findById(userId);
+    if(!user.favourites.includes(homeId)){
+        user.favourites.push(homeId);
+        await user.save();
+    }
+    res.redirect('/favourites');
     
 };
 
-exports.postDeleteFavourite = (req, res, next) => {
+exports.postDeleteFavourite = async (req, res, next) => {
     const homeId = req.params.homeId; 
-    Favourite.findOneAndDelete({ houseId: homeId }).then( () => {
-        console.log('favourite Home deleted ');
-    }).catch( error =>{
-        if(error){
-            console.log('error for deleting favourites the file - ',error);
-        }
-        
-    }).finally( ()=>{
-        res.redirect('/favourites');
-    })
+    const userId = req.session.user._id;
+    const user = await User.findById(userId);
+    if(user.favourites.includes(homeId)){
+        user.favourites = user.favourites.filter( favId => favId != homeId );
+        await user.save();
+    }
+
+    res.redirect('/favourites');
     
 };
 
