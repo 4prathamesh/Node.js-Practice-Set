@@ -1,7 +1,7 @@
 
-const Favourite = require("../Models/favourite");
+// const Favourite = require("../Models/favourite");
 const Home = require("../Models/home");
-
+const User = require("../Models/user");
 exports.getIndex = (req, res, next) => {
     Home.find().then(registeredHome => {
         res.render( 'store/index' ,{ registeredHome : registeredHome, pageTitle: 'Airbnb Home', currentPage : 'index', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user ?? '' })
@@ -18,20 +18,17 @@ exports.getBookings = (req, res, next) => {
     res.render( 'store/bookings' ,{ pageTitle: 'My Bookings', currentPage : 'bookings', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user  }); 
 };
 
-exports.getFavouriteList = (req, res, next) => {
-
-    Favourite.find()
-        .populate('houseId')
-            .then(favourites => {
-                const favouriteHomes = favourites.map(fav => fav.houseId);
-                res.render( 'store/favourite-list' ,
-                    {
-                        favouriteHomes, 
-                        pageTitle: 'My Favourite', 
-                        currentPage : 'favourites' , isLoggedIn: req.session.isLoggedIn || false,
-                        user : req.session.user 
-                    });
-            });
+exports.getFavouriteList = async (req, res, next) => {
+    const userId = req.session.user._id;
+    const user = await User.findById(userId).populate('favourites');
+    res.render( 'store/favourite-list' ,
+    {
+        favouriteHomes: user.favourites, 
+        pageTitle: 'My Favourite', 
+        currentPage : 'favourites' , 
+        isLoggedIn: req.session.isLoggedIn || false,
+        user : req.session.user 
+    });
 };
 
 exports.postAddToFavourite = (req, res, next) => {

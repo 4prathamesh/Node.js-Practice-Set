@@ -23,7 +23,11 @@ const userSchema = mongoose.Schema({
     terms: {
         type: Boolean,
         required: [true, "Terms must be accepted"]
-    }
+    },
+    favourites: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Home'
+    }]
 })
 
 module.exports = mongoose.model('User', userSchema);

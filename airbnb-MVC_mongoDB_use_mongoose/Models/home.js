@@ -21,12 +21,12 @@ const homeSchema = mongoose.Schema({
     description: String,
 });
 
-homeSchema.pre('findOneAndDelete', async function() {
-    const homeId = this.getQuery()._id;
-    const Favourite = require('./favourite');
+// homeSchema.pre('findOneAndDelete', async function() {
+//     const homeId = this.getQuery()._id;
+//     const Favourite = require('./favourite');
 
-    await Favourite.deleteMany({ houseId: homeId });
-});
+//     await Favourite.deleteMany({ houseId: homeId });
+// });
 
 module.exports = mongoose.model('Home',homeSchema);
 /*
