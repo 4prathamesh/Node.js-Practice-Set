@@ -17,7 +17,7 @@ const homeSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    photoUrl: String,
+    photo: String,
     description: String,
 });
 
@@ -35,7 +35,7 @@ module.exports = mongoose.model('Home',homeSchema);
         this.price = price;
         this.location = location;
         this.rating = rating;
-        this.photoUrl = photoUrl;
+        this.photo = photo;
         this.description = description;
             this._id = _id;
 

@@ -11,7 +11,7 @@
       <%= editing ? 'Edit' : 'Register' %> your home 🏠
     </h1>
 
-    <form action="/host/<%= editing ? 'edit-home' : 'add-home' %>" method="POST"
+    <form action="/host/<%= editing ? 'edit-home' : 'add-home' %>" method="POST" enctype="multipart/form-data"
       class="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-5 border border-gray-100">
 
       <div class="flex flex-col gap-4">
@@ -70,15 +70,10 @@
             required ><%= editing ? home.description : '' %></textarea>
         </div>
 
-        <div>
-          <label for="photoUrl" class="block text-gray-700 font-medium mb-2">
-            Photo URL
-          </label>
-          <input type="text" name="photoUrl" id="photoUrl"
-            value="<%= editing ? home.photoUrl : '' %>"
-            placeholder="Enter Photo URL"
-            class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400"
-            required />
+        <div class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400">
+          <input type="file" name="photo" id="photo"
+            class=" bg-gray-700 text-black rounded-md cursor-pointer w-full"
+            />
         </div>
       </div>
 

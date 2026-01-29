@@ -20,13 +20,13 @@ exports.getEditHome = (req, res, next) => {
 } 
 
 exports.postEditHome = (req, res, next) => {
-    const {id, houseName, price, location, rating, photoUrl, description} = req.body;
+    const {id, houseName, price, location, rating, photo, description} = req.body;
     Home.findById(id).then( (home) => {
         home.houseName = houseName;
         home.price = price;
         home.location = location;
         home.rating = rating;
-        home.photoUrl = photoUrl;
+        home.photo = photo;
         home.description = description;
         home.save().then(result => {
             console.log('Home updated ', result);
@@ -42,8 +42,13 @@ exports.postEditHome = (req, res, next) => {
 
 exports.postAddHome = async (req, res, next) => {
     try {
-        const { houseName, price, location, rating, photoUrl, description } = req.body;
-        const home = new Home({ houseName, price, location, rating, photoUrl, description });
+        const { houseName, price, location, rating, description } = req.body;
+        if(!req.file){
+            console.error('No file uploaded');
+            return res.status(400).redirect('/host/add-home'); // Or use flash messages
+        }
+        const photo = req.file.path;
+        const home = new Home({ houseName, price, location, rating, photo, description });
         await home.save();
         console.log('Home Saved Successfully');
         res.redirect('/host/host-home-list');
