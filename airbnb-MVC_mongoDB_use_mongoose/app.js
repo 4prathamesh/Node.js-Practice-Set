@@ -39,6 +39,7 @@ const multerOptions = {storage,fileFilter};
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
+app.use('/host/uploads', express.static('uploads'));
 app.use(multer(multerOptions).single('photo'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
