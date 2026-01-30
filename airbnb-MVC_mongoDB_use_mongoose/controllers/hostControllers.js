@@ -26,8 +26,10 @@ exports.postEditHome = (req, res, next) => {
         home.price = price;
         home.location = location;
         home.rating = rating;
-        home.photo = photo;
         home.description = description;
+        if(req.file){
+            home.photo = req.file.path;
+        }
         home.save().then(result => {
             console.log('Home updated ', result);
         }).catch(err =>{
