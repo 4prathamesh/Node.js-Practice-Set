@@ -1,5 +1,6 @@
 
 const Home = require("../Models/home");
+const fs = require('fs');
 
 exports.getAddHome = (req, res, next) => {
     res.render('host/edit-home', {'editing': false, pageTitle : 'Add Home To Airbnb', currentPage : 'addHome', isLoggedIn: req.session.isLoggedIn || false, user : req.session.user });
@@ -28,6 +29,11 @@ exports.postEditHome = (req, res, next) => {
         home.rating = rating;
         home.description = description;
         if(req.file){
+            fs.unlink(home.photo, (err) => {
+                if (err) {
+                    console.error('Error deleting old photo:', err);
+                }
+            });
             home.photo = req.file.path;
         }
         home.save().then(result => {
