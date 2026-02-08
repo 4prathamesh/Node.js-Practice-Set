@@ -1,19 +1,24 @@
 // External Module
 const express = require('express');
 const { default: mongoose } = require('mongoose');
+const cors = require('cors');
 
 // Database Path
 const DB_PATH = 'mongodb+srv://prathameshroot:root@prathamesh.sofwjiq.mongodb.net/todo?appName=Prathamesh';
 
 // Internal Module
-const errorControllers = require('./controllers/error-controllers');
+// const errorControllers = require('./controllers/error-controllers');
+const todoItemsRouter = require('./routes/todoItemsRouter');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true })); 
-app.use(express.static('public'));
+app.use(express.json());
+app.use(cors());
 
-app.use(errorControllers);
+app.use('/api/todo', todoItemsRouter);
+
+// app.use(errorControllers);
 
 const PORT = 3000;
 
