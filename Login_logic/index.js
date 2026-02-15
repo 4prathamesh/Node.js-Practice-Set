@@ -1,8 +1,9 @@
 // expernal imports
+require('dotenv').config();
 const express = require('express');
 
 // internal modlue imports
-connectDB = require('./config/db');
+const connectDB = require('./config/db');
 connectDB();
 
 const Router = require('./routes/authRouters');
@@ -17,6 +18,6 @@ app.get('/', (req, res, next) => {
 
 app.use('/api/auth', Router);
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port http://localhost:${process.env.PORT}`);
 });
