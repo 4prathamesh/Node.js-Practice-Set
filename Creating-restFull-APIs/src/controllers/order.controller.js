@@ -2,7 +2,9 @@ const {
     getUserCallback,
     getCardCallback,
     placeOrderCallback,
-
+    getUserPromise,
+    getCardPromise,
+    placeOrderPromise,
 } = require("../services/order.services");
 
 // CALLBACK
@@ -20,4 +22,12 @@ exports.callbackOrder = (req, res) => {
             })
         })
     })
+};
+
+exports.promiseOrder = (req, res) => {
+    getUserPromise(2)
+        .then((user) => getCardPromise(user))
+        .then((card) => placeOrderPromise(card))
+        .then((order) => res.json({type: "Promise", order}))
+        .catch((err) => res.status(500).json({error: err}));
 };
