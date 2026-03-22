@@ -31,3 +31,15 @@ exports.promiseOrder = (req, res) => {
         .then((order) => res.json({type: "Promise", order}))
         .catch((err) => res.status(500).json({error: err}));
 };
+
+exports.asyncOrder = async (req, res) => {
+    try{
+        const user = await getUserPromise(3);
+        const card = await getCardPromise(user);
+        const order = await placeOrderPromise(card);
+
+        res.json({type: "Async/Await", order});
+    }catch (err) {
+        res.status(500).json({error: err});
+    }
+};
