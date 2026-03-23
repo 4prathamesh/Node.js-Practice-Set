@@ -26,12 +26,12 @@ exports.getUserPromise = (userId) => {
 
 exports.getCardPromise = (user) => {
     return new Promise((resolve) => {
-        setTimeout(() => resolve({item: ["laptop", "Mouse"]}), 500);
+        setTimeout(() => resolve({userId:user.id, items: ["laptop", "Mouse"], total: 4000}), 500);
     });
 };
 
-exports.placeOrderPromise = (order) => {
+exports.placeOrderPromise = (cart) => {
     return new Promise((resolve) => {
-        setTimeout(() => resolve({orderId: 2, status: "success"}), 500);
+        setTimeout(() => resolve({orderId: Math.floor(Math.random()*1000), items: cart.items, total: cart.total, status: "success"}), 500);
     });
 };

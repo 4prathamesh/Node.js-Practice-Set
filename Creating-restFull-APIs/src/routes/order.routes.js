@@ -8,7 +8,7 @@ const {
 } = require('../controllers/order.controller');
 
 router.get('/callback-order/:userId', callbackOrder);
-router.get('/promise-order', promiseOrder);
-router.get('/async-order', asyncOrder);
+router.get('/promise-order/:userId', promiseOrder);
+router.get('/async-order/:userId', asyncOrder);
 
 module.exports = router;

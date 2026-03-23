@@ -26,7 +26,10 @@ exports.callbackOrder = (req, res) => {
 };
 
 exports.promiseOrder = (req, res) => {
-    getUserPromise(2)
+    const userId = req.params.userId;
+    if(!userId) return res.status(400).json({error: "User Not found"});
+
+    getUserPromise(userId)
         .then((user) => getCardPromise(user))
         .then((card) => placeOrderPromise(card))
         .then((order) => res.json({type: "Promise", order}))
@@ -35,11 +38,23 @@ exports.promiseOrder = (req, res) => {
 
 exports.asyncOrder = async (req, res) => {
     try{
-        const user = await getUserPromise(3);
-        const card = await getCardPromise(user);
-        const order = await placeOrderPromise(card);
 
-        res.json({type: "Async/Await", order});
+        const userId = req.params.userId;
+        if(!userId) return res.status(400).json({error: "User not found"});
+
+        const user = await getUserPromise(userId);
+        const cart = await getCardPromise(user);
+        const order = await placeOrderPromise(cart);
+
+        res.json(
+                {
+                    message: "Order Placed Successfully",
+                    type: "Async/Await",
+                    user,
+                    cart,
+                    order,
+                }
+            );
     }catch (err) {
         res.status(500).json({error: err});
     }
