@@ -4,11 +4,17 @@ exports.getUserCallback = (userId, cb) => {
 };
 
 exports.getCardCallback = (user, cb) => {
-    setTimeout(() => cb(null, {item: ['laptop', 'Mouse']}), 500);
+    setTimeout(() => cb(null, {userId: user.id, items: ['laptop', 'Mouse'], total: 400}), 500);
 };
 
 exports.placeOrderCallback = (card, cb) => {
-    setTimeout(() => cb(null, {orderId: 1, status: "success"}), 500);
+    setTimeout(() => cb(null, 
+        {
+            orderId: Math.floor(Math.random() * 1000),
+            ites: card.items,
+            total: card.total,
+            status: "success"
+        }), 500);
 };
 
 // PROMISE VERSION

@@ -9,7 +9,8 @@ const {
 
 // CALLBACK
 exports.callbackOrder = (req, res) => {
-    getUserCallback(1, (err, user) => {
+    const userId = req.params.userId;
+    getUserCallback(userId, (err, user) => {
         if(err) return res.status(500).json({error: err});
 
         getCardCallback(user, (err, card) => {
